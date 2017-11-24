@@ -1,0 +1,807 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{comod-net-analysis}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Research Context}\label{research-context}
+
+Online communities often have the freedom, and responsibility, to define
+their own community norms. The social news site Reddit is an example of
+a platform that imposes no editorial control over content produced.
+Reddit's administrators instead encourage users to create topic-based
+forums, called subreddits, according to their own desires and to develop
+unique standards of acceptable behaviours. A small number of community
+members who volunteer as moderators together with the wider community of
+non-moderating contributors work to define the purpose and tone of their
+subreddits, and detail a code of conduct for participating in the space.
+These developments are made both implicitly and explicitly and can
+highlight irreconcilable desires within the community. As such Reddit
+makes a fascinating subject of study for gaining understanding of the
+techniques and methods members and moderators of online communities use
+in the delicate process of norm-setting.
+
+This research is in the early stages of defining the theoretical and
+methodological considerations required in researching the processes of
+norm-setting by subreddit communities. I am currently piloting this work
+by studying two distinct subreddits; r/The\_Donald - a community for
+ardent supporters of Donald Trump - and r/changemyview -- a forum where
+users actively encourage others to try to change their opinions on any
+given topic. I am seeking to identify changes in the respective
+moderator networks of r/The\_Donald and r/ChangeMyView moderators over
+time, and how possible `moderation eras' correspond with different eras
+of community norms and standards within each community.
+
+These particular communities are of substantive interest because they
+highlight the variety of ways in which subreddits can operate, and the
+kind of positioning subreddits can have within the wider reddit
+community. r/The\_Donald operates as a safe space, or echo chamber, for
+supporters of Donald Trump, any dissenting opinions are banned. At the
+same time, the subreddit's moderators have a fraught relationship with
+reddit employees, the `admins', who they accuse of censoring
+r/The\_Donald content from the wider platform. This juxtaposition raises
+interesting theoretical considerations for the meaning of free speech on
+the platform. Conversely, r/changemyview exists as a space for rational,
+well evidenced and argued exchanges of opinion. Posts are rarely banned
+for what content they say but for whether it is contributed in
+accordance with strict submission standards.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k+kn}{from} \PY{n+nn}{functions} \PY{k}{import} \PY{o}{*}
+        \PY{k+kn}{from} \PY{n+nn}{mod\PYZus{}timeline\PYZus{}figures} \PY{k}{import} \PY{o}{*}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        
+        \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}INITIALIZE DATA\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{n}{date} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2017\PYZhy{}10\PYZhy{}27}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{output} \PY{o}{=} \PY{n}{output\PYZus{}dict}\PY{p}{(}\PY{n}{date}\PY{p}{)}
+        
+        \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}output[\PYZsq{}td\PYZsq{}][\PYZsq{}desc\PYZus{}table\PYZsq{}] = output[\PYZsq{}td\PYZsq{}][\PYZsq{}desc\PYZus{}table\PYZsq{}].reindex([\PYZsq{}\PYZsh{} nodes\PYZsq{},\PYZsq{}\PYZsh{} edges\PYZsq{}, \PYZsq{}\PYZsh{} components\PYZsq{},}
+        \PY{l+s+sd}{                                             \PYZsq{}\PYZsh{} isolates\PYZsq{}, \PYZsq{}density\PYZsq{},\PYZsq{}EI index\PYZsq{},\PYZsq{}\PYZsh{} BM partitions\PYZsq{}])}
+        \PY{l+s+sd}{output[\PYZsq{}cmv\PYZsq{}][\PYZsq{}desc\PYZus{}table\PYZsq{}] = output[\PYZsq{}cmv\PYZsq{}][\PYZsq{}desc\PYZus{}table\PYZsq{}].reindex([\PYZsq{}\PYZsh{} nodes\PYZsq{},\PYZsq{}\PYZsh{} edges\PYZsq{}, \PYZsq{}\PYZsh{} components\PYZsq{},}
+        \PY{l+s+sd}{                                             \PYZsq{}\PYZsh{} isolates\PYZsq{}, \PYZsq{}density\PYZsq{},\PYZsq{}EI index\PYZsq{},\PYZsq{}\PYZsh{} BM partitions\PYZsq{}])}
+        \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        
+        \PY{n}{sub1} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{td}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{subname1} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r/The\PYZus{}Donald}\PY{l+s+s1}{\PYZsq{}}
+        \PY{c+c1}{\PYZsh{}mods1 = output[sub1][\PYZsq{}mods\PYZsq{}]}
+        \PY{c+c1}{\PYZsh{}subs1 = output[sub1][\PYZsq{}subs\PYZsq{}]}
+        
+        \PY{n}{sub2} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cmv}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{subname2} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r/changemyview}\PY{l+s+s1}{\PYZsq{}}
+        \PY{c+c1}{\PYZsh{}mods2 = output[sub2][\PYZsq{}mods\PYZsq{}]}
+        \PY{c+c1}{\PYZsh{}subs2 = output[sub2][\PYZsq{}subs\PYZsq{}]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}UPDATE PLOTS\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{n}{mod\PYZus{}count\PYZus{}plots}\PY{p}{(}\PY{n}{output}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{td}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{mod\PYZus{}count\PYZus{}plots}\PY{p}{(}\PY{n}{output}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cmv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{mod\PYZus{}count\PYZus{}headers} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mod Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{all\PYZus{}mods}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{active\PYZus{}mods}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{diff\PYZus{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        \PY{n}{td\PYZus{}timeline}\PY{p}{(}\PY{p}{)}
+        \PY{n}{cmv\PYZus{}timeline}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n}{twomode\PYZus{}net\PYZus{}plot}\PY{p}{(}\PY{n}{output}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{td}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{mod\PYZus{}net\PYZus{}plot}\PY{p}{(}\PY{n}{output}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{td}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{sub\PYZus{}net\PYZus{}plot}\PY{p}{(}\PY{n}{output}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{td}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{twomode\PYZus{}net\PYZus{}plot}\PY{p}{(}\PY{n}{output}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cmv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{mod\PYZus{}net\PYZus{}plot}\PY{p}{(}\PY{n}{output}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cmv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{sub\PYZus{}net\PYZus{}plot}\PY{p}{(}\PY{n}{output}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cmv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \section{Introduction - Moderator
+Counts}\label{introduction---moderator-counts}
+
+The complete co-moderation network for each subreddit includes all
+redditors to have ever been a moderator of the ego subreddit. However,
+for the purposes of the network analysis I am only interested in those
+redditors who still moderate at least one subreddit. Thus redditors who
+do not moderate at al at the time of data collection, or whose account
+are no longer active are removed from the data for network analysis. I
+refer the the subset of currently moderating redditors as `active mods'.
+
+\subsubsection{Moderator Types}\label{moderator-types}
+
+There exists a strict hierarchy of moderator permissions types and
+seniority across all subreddits. For the purposes of the current
+research I do not address the full variety of permissions types, but
+dichotomise between \textbf{`top'} moderators -- those with full
+permissions, and \textbf{`non-tops'}, those without. The most important
+benefit of being a top moderator is having the ability to add or remove
+other moderators. All top moderators share the same abilities except in
+the case of changing the permissions of other moderators. A top
+moderator can only change the permissions of, or remove as moderator, a
+moderator younger than themselves. A strict time-based seniority exists
+in this way regardless of permissions levels.
+
+I have also separated moderators into those who currently moderator the
+ego subreddit and those who formerly moderated the ego subreddit. Thus
+there are four categories of moderator types:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Current tops} - those who are currently moderators in the ego
+  subreddit, and have at any point had full moderator permissions
+\item
+  \textbf{Current non-tops} - those are current moderators and have
+  never had full permissions
+\item
+  \textbf{Former tops} - those who do not currently moderate the ego
+  subreddit but at one point had full moderator permisisons
+\item
+  \textbf{Former non-tops} - those who formerly moderated the ego
+  subreddit but never had full permiissions
+\end{enumerate}
+
+It is of interest to see how many mods, and of which mod type, are no
+longer active.
+
+\subsubsection{Moderator Activity
+Counts}\label{moderator-activity-counts}
+
+The following tables and plots compare the breakdown of \emph{total} and
+\emph{active} moderators by mod type.
+
+\begin{verbatim}
+<tr>
+    <th  style="text-align: center">{{subname1}} moderator counts</th>
+    <th  style="text-align: center">{{subname1}} mod type counts</th>
+</tr>
+<tr>
+    <td>{{output[sub1]['mod_counts'][mod_count_headers].T}}</td>
+    <td><img src="td_mod_count_plots.png"></td>
+
+</tr>
+\end{verbatim}
+
+    83\% of former non-top moderators of \{\{subname1\}\} no longer moderate
+any subreddits, compared to only 17\% of former tops. This could be due
+to the existence of 'dummy accounts', which were only created for a
+brief purpose and were later deactivated.
+
+\begin{verbatim}
+<tr>
+    <th  style="text-align: center">{{subname2}} moderator counts</th>
+    <th  style="text-align: center">{{subname2}} moderator counts</th>
+</tr>
+<tr>
+    <td>{{output[sub2]['mod_counts'][mod_count_headers]}}</td>
+    <td><img src="cmv_mod_count_plots.png"></td>
+</tr>
+\end{verbatim}
+
+    Comparatively for \{\{subname2\}\}, 41\% of former non-tops and 58\% of
+former tops currently do not moderator any subreddits. However, given
+the small sample numbers for each mod type in \{\{subname2\}\}
+
+From the figures it is clear that the majority of redditors to ever
+moderate \{\{subname1\}\} are former non-tops while for \{\{subname2\}\}
+the majority are current tops. This suggests two differences in the
+moderator network.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\tightlist
+\item
+  \textbf{Moderation tenure is more unstable in \{\{subname1\}\}.}
+\end{enumerate}
+
+Though \{\{subname2\}\} is older, \{\{subname1\}\} has had \emph{check
+number - about 3 times as many??} moderators and the majority of these
+moderators have left the network. This can be seem more clearly in the
+moderation timelines in the next section.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  \textbf{Moderation power is more dispersed in \{\{subname2\}\}.}
+\end{enumerate}
+
+The majority of mods to ever appear in the \{\{subname2\}\} network are
+or have been top moderators \emph{add percentage}. In \{\{subname1\}\}
+only a fraction of moderators have had full permissions *add
+percentage**.
+
+*Lead into how the co-mod networks will explore this
+
+\section{Next section - Timeline of moderator presences and
+permissions}\label{next-section---timeline-of-moderator-presences-and-permissions}
+
+The first part of my research examines the changes in the group of
+moderators in each subreddit over time. I am particularly interested in
+when moderators entered/left/re-entered and what level of permissions
+they held at anytime. By first understanding the patterns of the
+moderation group, my aim is to ultimately address the following general
+research questions:
+
+\begin{itemize}
+\tightlist
+\item
+  How much influence do moderators have on the norm-setting process of
+  subreddits?
+\item
+  Is this influence administered in a more implicit or explicit manner?
+\item
+  Do these relate to certain characteristics of the subreddit, in
+  particular content?
+\end{itemize}
+
+\paragraph{Hypothesis 1A: Changes in top moderator(s) will be followed
+by changes in the overall moderator groups as non-top mods join or leave
+in support of
+leaders}\label{hypothesis-1a-changes-in-top-moderators-will-be-followed-by-changes-in-the-overall-moderator-groups-as-non-top-mods-join-or-leave-in-support-of-leaders}
+
+To be effective mod groups will need at least one member to be a top
+moderator, ideally a senior top mod. This hypothesis tests whether
+moderators do work in groups, and whether these groups are led by mods
+with greater powers When a group of moderators join or leave together
+this will be called a `moderation era'
+
+\paragraph{Hypothesis 1B: These `moderation eras' will correspond with
+changes in the a) norm standards and b) content of the
+subreddit.}\label{hypothesis-1b-these-moderation-eras-will-correspond-with-changes-in-the-a-norm-standards-and-b-content-of-the-subreddit.}
+
+If moderation groups are found, as being part of the same moderation
+era, this hypothesis tests to what extent the groups shares a common
+interest for the subreddit If groups share reflected in the other
+subreddits they choose to moderate. This leads to the analysis of the
+co-moderation network
+
+\section{Following section - comoderation
+networks}\label{following-section---comoderation-networks}
+
+The second stage of the research is to examine the co-moderation network
+for each subreddit. The co-moderation network is a one-mode projection
+for the two-mode moderator by subreddits network. Moderators are tied if
+they currently moderate a shared subreddit other than CMV or TD,
+respectively. On the assumption that moderators have some level of
+influence over their subreddits, I am seeking to determine whether types
+of influence are correlated with features of the co-moderation network.
+Example general research questions are:
+
+\begin{itemize}
+\tightlist
+\item
+  Do the most influential moderators:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    moderator many disparate communities?
+  \item
+    show niche moderating interests?
+  \item
+    or exclusively moderator a single community?
+  \end{itemize}
+\item
+  Following from Hypothesis 1B:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Do moderators act together in groups?
+  \item
+    Do these groups reflect content or form based cohesion?
+  \item
+    Do moderators group to impose their influence together?
+  \end{itemize}
+\end{itemize}
+
+\paragraph{Hypothesis 2A: Redditors who moderate the target subreddit
+during the same period will tend to also co-moderator other
+subreddits}\label{hypothesis-2a-redditors-who-moderate-the-target-subreddit-during-the-same-period-will-tend-to-also-co-moderator-other-subreddits}
+
+This hypothesis tests whether groups of moderators determined by
+moderation eras show homophily in terms of content interests.
+
+\paragraph{Hypothesis 2B: Those subreddit clusters will be indicative of
+mods' content interests for the target
+subreddit.}\label{hypothesis-2b-those-subreddit-clusters-will-be-indicative-of-mods-content-interests-for-the-target-subreddit.}
+
+If it is determined that moderation era groups do have similar
+interests, I will then begin looking at the changes in implicit and
+explicit norms in the subreddits in the third part of this research.
+
+\subsection{r/The\_Donald Part 1 -
+Timeline}\label{rthe_donald-part-1---timeline}
+
+\subsubsection{Moderator Attributes and
+Eras}\label{moderator-attributes-and-eras}
+
+Moderator lines are coloured by whether they are a current (red) or
+former (blue) moderator. Time sections when a moderator had top
+moderator permissions are shown in a darker shade of red or blue,
+respectively. The timeline shows that the group of moderators has been
+unstable as only a fraction of all moderators are still present and many
+moderators have left and returned (shown by the number of broken lines).
+New moderators are added in chunks at various time points, often
+following the making of a new `top' moderator, one with full
+permissions. This offers some support for hypothesis 1A. However not all
+moderation eras are preceded by top moderators, some appear to be
+related to offline and online events.
+
+\subsubsection{Event reference lines}\label{event-reference-lines}
+
+The four event reference lines on the timeline mark two offline (in
+black) and two online (in green) events. The offline, real world events
+are the date of the 2016 US Presidential election and the 2017
+inauguration of Donald Trump as president. A few moderators entered, or
+re-entered the timeline at the time of Trump's election and a large
+group entered around a week after the inauguration. This suggests that
+changes in the group of moderators may correspond with real world Trump
+related events, especially as new or returning Trump supporters respond
+to his real world successes. The green lines correspond with events that
+highlight the strained and controversial relationship between TD
+moderators and the employees of reddit, know as the admins. This
+suggests that subreddit members may react to the perceived external
+threat by admins to become moderators of the subreddit. This may have
+interesting implications for the way in which these moderators seek to
+run the subreddit.
+
+\{\{subname1\}\} Presence Timeline
+
+Moderator Stability
+
+The timeline shows that no current moderators of \{\{subname1\}\} have
+been in the network since the subreddit was created. Some of the current
+non-tops joined together around \emph{time?} and only brielfy left the
+network at times of fracture \emph{times w/ white lines}
+
+In particular, most of the current top moderators have also had
+fractured history lines, as they have either left the network at some
+point and/or previously held a non-top position.
+
+Most important to note are the multiple shelf like features in the
+timeline. These periods of time when many, if not most, moderators were
+removed or added as moderators en masse, in a brief period of time. This
+could only be done by a senior top mod. I posit that these mass mod
+migrations occur when the leading top mod(s) want to restructure the
+moderator in some way, or when the most senior top mod hands over power
+to another moderator.
+
+    \subsection{r/changemyview Part 1 -
+Timeline}\label{rchangemyview-part-1---timeline}
+
+The timeline for r/changemyview (CMV) shows that the moderator network
+is much more stable and less hierarchical compared to TD. New moderators
+have been added at a steady rate. There are two time points when groups
+of moderators left together, around June 2015 and February 2017. These
+will likely correspond with times of explicit change within the
+community. Otherwise the most notable finding is the three short
+moderation eras, which occurred around July 2013 and December 2013, when
+the same group of about 10 moderators were briefly added together three
+separate times. As it was in the early days of the subreddit, I expect
+this to correspond with changes in the explicit norm-setting process of
+the subreddit.
+
+\{\{subname2\}\} Moderator Presence Timeline
+
+    \subsection{Part 2 - Co-Moderation
+Networks}\label{part-2---co-moderation-networks}
+
+The following table shows the breakdown of current and former CMV mods
+by current moderation status. Only 15\% of moderators of CMV have been
+non-top moderators. From the above timeline we see that moderator
+permission types are stable, moderators always remain either top or
+non-top through out their tenure. Importantly, the only current non-top
+moderator is a non-human bot. All former CMV moderators still have
+active accounts, half currently do not moderate any subreddits and one
+third moderate at least one subreddit but are not connected to the
+co-moderation network. Only three former moderators are part of the
+current co-moderation network, suggesting a clearer distinction between
+former and current moderators.
+
+\textbf{Subreddit Network Statistics}
+
+\begin{verbatim}
+<tr>
+    <td>{{output[sub1]['desc_table']}}</td>
+    <td>{{output[sub2]['desc_table']}}</td>
+</tr>
+\end{verbatim}
+
+    \begin{example}
+  Figure~\ref{fig:hasse} depicts ...
+\begin{figure}[twomode_net_td.png]
+\centering
+\begin{tikzpicture}
+    \tikzstyle{every node}=[draw,circle,fill=black,minimum size=4pt,
+                            inner sep=0pt]
+    [bunch of lines for the picture]    
+\end{tikzpicture}
+\caption{Hasse diagram}
+\label{fig:hasse}
+\end{figure}
+\end{example}
+
+    \paragraph{Moderator Type Homophily}\label{moderator-type-homophily}
+
+The tables above show the Krackhardt E/I Ratio for each of the one-mode
+networks. This is only relevant in the moderator networks, where
+moderators are grouped by their moderator type (current/former,
+top/non-top). Edges are 'within type' if the nodes share the same
+moderator status, example they are both former tops. Edges are 'between
+types' if the nodes have different moderator types, example one current
+top and one former non-top. Thus the E-I index is this application was
+computed by:
+
+\[\frac{\textrm{number of between type edges} - \textrm{number of within type edges}}{\textrm{total number of edges}}\]
+
+An E-I index of -1 means all edges are within group (homophily), +1
+means all edges are between group (heterophily). The r/The\_Donald
+moderator network was an E-I index of 0.27 - there are slightly more
+ties external to groups than internal, suggesting some heterophily
+between moderator types. The r/changemyview moderator network was an E-I
+index of -0.85 - there are many more ties interal to groups than
+external, suggesting significant homophily between moderator types.
+However, this is to be expected given that 1/2 of all redditors to ever
+moderate r/changemyview (and 63\% of those who are still active
+moderators of some kind) belong to the current top group. Current top
+moderators thus have greater opportunity to form edges with other
+current tops.
+
+    \textbf{Two-Mode Networks}
+
+\begin{verbatim}
+<tr>
+    <th  style="text-align: center">{{subname1}}</th>
+    <th  style="text-align: center">{{subname2}}</th>
+</tr>
+<tr>
+    <td><img src='twomode_net_td.png'></td>
+    <td><img src='twomode_net_cmv.png'></td>
+</tr>
+\end{verbatim}
+
+    \textbf{One-Mode Moderator Networks}
+
+As more than half of users to ever moderate CMV are current top
+moderators, it is obvious that they will form the majority of the
+current co-moderation network (87\%). Compared to the TD co-moderation
+network, there is much less opportunity for variety in the status of
+moderators in the network. However, an examination of the subreddit
+network will determine which subreddits connect the 3 former moderators
+to the network, and which few subreddits seem to densely connect most
+current moderators. I also seek to account for the temporal aspect for
+current moderators, by seeing if those who joined at the same time show
+any tendency towards other similar subreddits.
+
+\begin{verbatim}
+<tr>
+    <th  style="text-align: center">{{subname1}}</th>
+    <th  style="text-align: center">{{subname2}}</th>
+</tr>
+<tr>
+    <td><img src="mod_net_td.png"></td>
+    <td><img src="mod_net_cmv.png"></td>
+</tr>
+\end{verbatim}
+
+    \textbf{One-Mode Subreddit Network}
+
+\begin{verbatim}
+<tr>
+    <th  style="text-align: center">{{subname1}}</th>
+    <th  style="text-align: center">{{subname2}}</th>
+</tr>
+<tr>
+    <td><img src="sub_net_td.png"></td>
+    <td><img src="sub_net_cmv.png"></td>
+</tr>
+\end{verbatim}
+
+    \section{Former Next Steps}\label{former-next-steps}
+
+\subsection{Timeline}\label{timeline}
+
+I plan to then use text analysis techniques to examine whether shifts in
+the moderator network correspond to shifts in the informal community
+discussions and formal moderator controlled standards of behaviour --
+i.e. the implicit and explicit sources of community norms on
+r/The\_Donald and r/ChangeMyView. My first step is to look deeper into
+moderation eras transition periods. Then looking at top posts and
+comments for sentiment and text analysis, i.e. implicit changes in
+subreddit norms and changes in subreddit formal documents (ex wikis,
+sidebar) for explicit changes in norms
+
+\subsection{Co-moderation network}\label{co-moderation-network}
+
+I will extend my analysis of the co-moderation network to consider
+possible content clusters as outlined in hypothesis 2B. This may take
+the form of two-mode blockmodeling of moderators by subreddits. However
+I would first like to better address the issue of the longitudinal
+nature of the moderator data. Dichotomising moderators as current/former
+loses meaning of possible `moderation eras'. At present I only have data
+on the subreddits currently moderated while it is more important which
+subreddits formers moderators co-moderated at the time they moderated
+CMV or TD.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
